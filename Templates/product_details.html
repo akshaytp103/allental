@@ -1,0 +1,118 @@
+{% extends 'userbase.html' %} 
+{% load static %}
+{% block title %}cart{% endblock %}
+{% block content %}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>Fresh and Organic</p>
+					<h1>product details</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end breadcrumb section -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>eCommerce Product Detail</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'pcss.css' %}">
+
+</head>
+
+<body>
+  
+    <div class="container">
+		{% for item in items %}
+		<div class="card">
+			<div class="container-fliud">
+				<div class="wrapper row">
+					<div class="preview col-md-6">		
+						<div class="preview-pic tab-content">
+						  <div class="tab-pane active" id="pic-1"><img src="{{item.image.url}}" /></div>
+						  <!-- <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div> -->
+						</div>
+						<ul class="preview-thumbnail nav nav-tabs">
+						  <!-- <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li> -->
+						  <!-- <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li> -->
+						</ul>
+						
+					</div>
+					<div class="details col-md-6">
+						<h3 class="product-title">{{item.name}}</h3>
+						<div class="rating">
+							<div class="stars">
+								<!-- <span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span> -->
+							</div>
+							<!-- <span class="review-no">41 reviews</span> -->
+						</div>
+						<p class="product-description">Senectus enim minim sociosqu delectus posuere.</p>
+						<h4 class="price">current price: <span>₹{{item.price}}</span></h4>
+						<!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> -->
+						<form action="{% url 'add_cart' item.id %}" method="POST">
+							{% csrf_token %}	
+							{% if item.variation_set.all %}						
+					 		<div class="colors col-md-3">color
+								<select name="color" class="form-control" required>
+									<option value="" disabled selected>Select</option>
+									{% for i in item.variation_set.color %}
+									<option value="{{ i.variation_value | lower}}">{{ i.variation_value | capfirst}}</option>
+									{%endfor%}		 
+								</select>
+							</div>
+							<!-- <div class="colors col-md-3">size
+								<select name="color" class="form-control" required>
+									<option value="" disabled selected>Select</option>
+									{% for i in item.variation_set.size %}
+									<option value="{{ i.variation_value | lower}}">{{ i.variation_value | capfirst}}</option>
+									{%endfor%}		 
+								</select>
+							</div> -->
+							{%endif%}
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-204 flex-w flex-m respon6-next">
+									<div class="d-flex p-4">
+										{% if single_product.stock <= 0 %}
+											<h5>Out stock</h5>
+										{% else %}
+											<button class="add-to-cart btn btn-default" type="submit">add to cart</button>
+										{%endif%}								
+									</div>
+									<!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button> -->
+									
+									
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		{%endfor%}
+	</div>
+  </body>
+</html>
+{%endblock%}

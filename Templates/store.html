@@ -1,0 +1,52 @@
+{% extends 'userbase.html' %} 
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <!-- <p>Fresh and Organic</p> -->
+                    <h1>STORE</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                
+                <div class="section-title">	
+                    <h3><span class="orange-text">Our</span> Products</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+                </div>
+            </div>
+        </div>			
+        <div class="row">				
+            {% for product in products %}
+            <div class="col-lg-4 col-md-6 text-center">					
+                <div class="single-product-item">
+                    <div class="product-image">
+                    </div>
+                    <a href=""><img src="{{product.image.url}}" alt=""></a>
+                    <h3 class="card-title">{{product.name}}</h3>
+                    <a href=""><h4 class="product-categorie">{{product.category.category_name}}</h4></a>
+                    <p class="product-price">₹{{product.price}} </p>
+                    <a href="{% url 'product-details' product.slug %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> view more</a>
+                </div>					
+            </div>
+            {%endfor%}				
+            
+        </div>
+    </div>
+</div>
+
+<!-- end product section -->
+
+{% endblock %}

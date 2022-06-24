@@ -1,0 +1,310 @@
+{% extends 'userbase.html' %} 
+{% load static %}
+{% block title %}checkout{% endblock %}
+{% block content %}
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						 <!-- <p>Fresh and Organic</p> -->
+						<h1>Check Out Product</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+	<div class="cart-table-area section-padding-100 pt-2">
+		<div class="container-fluid">
+			
+			<div class="row">
+			{% if cart_items %}
+				
+				<div class="col-12 col-lg-12 pt-5">
+					{% if addresses %}
+					<h4 class="pl-0">Choose an Address</h4>
+					<form action="" id="adrs">
+						{% for address in addresses %}
+						<div class="row col-12">
+							<div class="col-12 d-flex p-0 mb-2">
+								<input class="align-self-start mt-3" type="radio" onchange="a('{{address.full_name}}','{{address.mobile}}', '{{address.address}}','{{address.landmark}}','{{address.city}}','{{address.state}}','{{address.country}}','{{address.pin_code}}')"
+								id="{{address.id}}" name="address" value="{{address.id}}">
+								<label for="html" class="col-12 p-0 m-0">
+									<div class="col-12 mt-2 mb-2">
+										<div class="card p-3 mb-5 bg-white rounded" style="box-shadow: 0 6px 6px  rgba(0,0,0,0.08);">
+											<div class="card-body py-0">
+												<h5 class="card-title mb-2">Name : {{address.full_name}}</h5>
+												<p class="card-text mb-0 pl-0">Address :{{address.address}}</p>												
+												<p class="card-text mb-0 pl-0">City : {{address.city}}</p>
+												<p class="card-text mb-0 pl-0">State : {{address.state}}</p>
+												<p class="card-text mb-0 pl-0">Country : {{address.country}}</p>
+												<p class="card-text mb-0 pl-0">Pin code : {{address.pin_code}}</p>
+												<p class="card-text mb-0 pl-0">Phone : {{address.mobile}}</p>
+												<p class="card-text mb-0 pl-0">Landmark : {{address.landmark}}</p>
+											</div>
+										</div>
+									</div>
+								</label>
+							</div>
+						</div>
+						{% endfor %}
+					</form>
+					{% endif %}
+	<!-- check out section -->
+	<div class="checkout-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="checkout-accordion-wrap">
+						<div class="accordion" id="accordionExample">
+						  <div class="card single-accordion">
+						    <div class="card-header" id="headingOne">
+						      <h5 class="mb-0">
+						        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						          Billing Address
+						        </button>
+						      </h5>
+						    </div>
+
+						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+						      <div class="card-body">
+						        <div class="billing-address-form">
+						        	<form action="{% url 'place_order' %}" method="POST" >
+										{% csrf_token %}
+						        		<p><input type="text" name="full_name" placeholder="FullName"></p>				
+						        		<p><input type="email" name="email" placeholder="Email"></p>
+						        		<p><input type="text" name="address" placeholder="address"></p>
+										<p><input type="text" name="city" placeholder="city"></p>
+										<p><input type="text" name="state" placeholder="State"></p>
+										<p><input type="text" name="country" placeholder="country"></p>
+										<p><input type="text" name="pin_code" placeholder="pincode"></p>
+										<p><input type="text" name="mobile" placeholder="mobile"></p>
+						        		<p><textarea id="bill" cols="30" rows="10" name="order_note" placeholder="Say Something"></textarea></p>
+										<div class="cart-buttons">
+											<a href="cart.html" class="boxed-btn"><button class="btn btn-link" style="color:white" type="submit" name="submit">Place Order</button></a>
+										</div>
+									</form>
+						        	
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						 
+						 
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="order-details-wrap">
+						<table class="order-details">
+							<thead>
+								<tr>
+									<h3 class="text-center">Your order Details</h3>
+								</tr>
+							</thead>
+							<tbody class="order-details-body">
+								
+								<tr>
+									<td>image</td>
+									<td>Product</td>
+									<td>Quantity</td>
+									<td>Price</td>
+
+								</tr>
+								{% for cart_item in cart_items %}
+								<tr>
+									<td><img src="{{cart_item.product.image.url}}" alt=""></td>
+									<td>{{cart_item.product.name}}</td>
+									<td>{{cart_item.quantity}}</td>
+									<td>{{cart_item.product.price}}</td>
+								</tr>
+								{% endfor %}	
+							</tbody>
+							</tbody>
+						</table>
+						<br>
+						<div class="col-lg-4">
+							<div class="order-details-wrap">
+								<table class="order-details">
+									<tbody class="order-details-body">
+										<tr>
+											<tr class="total-data">
+												<td><strong>Subtotal: </strong></td>
+												<td>{{ total }}</td>
+											</tr>
+											<tr class="total-data">
+												<td><strong>TAX: </strong></td>
+												<td>{{tax}}</td>
+											</tr>
+											<tr class="total-data">
+												<td><strong>Grand Total: </strong></td>
+												<td>{{grand_total}}</td>
+											</tr>
+										</tr>	
+									</tbody>
+								</table>
+					
+							</div>
+				
+				</div>
+			{% else %}
+			<h2 style="font-weight: 800" class="text-danger mt-5 pt-5">
+				Your cart is empty!!!
+			</h2>
+			<a
+				class="btn amado-btn my-5 mx-3"
+				style="width: 175px"
+				href="{% url 'home' %}"
+				>Shop with us</a
+			>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- end check out section -->
+    <script>
+		function a(full_name, mobile, address, landmark, city, state, country, pin_code) {
+			document.getElementById('full_name').value = full_name
+			document.getElementById('mobile').value = mobile
+			document.getElementById('address').value = address
+			document.getElementById('landmark').value = landmark
+			document.getElementById('city').value = city
+			document.getElementById('state').value = state
+			document.getElementById('country').value = country
+			document.getElementById('pin_code').value = pin_code
+	
+		}
+	</script>
+	
+	<style>
+		.error{
+			color: red;
+		}
+	</style>
+	<script>
+		$(document).ready(function ($) {
+			console.log("hai");
+			$("#address-form").validate({
+				rules: {
+					first_name:{
+						required: true
+					},
+					last_name:{
+						required: true
+					},
+					email: {
+						required: true,
+						email: true
+					},
+					address1:{
+						required:true
+					},
+					city:{
+						required:true
+					},
+					state:{
+						required:true
+					},
+					pincode:{
+						required:true,
+						minlength:6,
+						maxlength:6
+					},
+					phone:{
+						required:true,
+						minlength:10,
+						maxlength:10
+					},
+				},
+				messages: {
+					email:{
+						required: "Please enter your email",
+					},
+					phone:{
+						required:"Please enter a phone number",
+						minlength:"Please provide a valid number",
+						maxlength:"Please provide a valid number"
+					},
+					pincode:{
+						required:"Pincode is required ",
+						minlength:"Please provide a valid pincode",
+						maxlength:"Please provide a valid pincode"
+					},
+					
+				},
+				submitHandler: function (form) {
+					form.submit();
+				}
+	
+			});
+		});
+	</script>
+	<!--Footer-->
+	<footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+		<!--Call to action-->
+		<div class="pt-4">
+		  <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">Download MDB
+			<i class="fas fa-download ml-2"></i>
+		  </a>
+		  <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">Start free tutorial
+			<i class="fas fa-graduation-cap ml-2"></i>
+		  </a>
+		</div>
+		<!--/.Call to action-->
+	
+		<hr class="my-4">
+	
+		<!-- Social icons -->
+		<div class="pb-4">
+		  <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+			<i class="fab fa-facebook-f mr-3"></i>
+		  </a>
+	
+		  <a href="https://twitter.com/MDBootstrap" target="_blank">
+			<i class="fab fa-twitter mr-3"></i>
+		  </a>
+	
+		  <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+			<i class="fab fa-youtube mr-3"></i>
+		  </a>
+	
+		  <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+			<i class="fab fa-google-plus-g mr-3"></i>
+		  </a>
+	
+		  <a href="https://dribbble.com/mdbootstrap" target="_blank">
+			<i class="fab fa-dribbble mr-3"></i>
+		  </a>
+	
+		  <a href="https://pinterest.com/mdbootstrap" target="_blank">
+			<i class="fab fa-pinterest mr-3"></i>
+		  </a>
+	
+		  <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+			<i class="fab fa-github mr-3"></i>
+		  </a>
+	
+		  <a href="http://codepen.io/mdbootstrap/" target="_blank">
+			<i class="fab fa-codepen mr-3"></i>
+		  </a>
+		</div>
+		<!-- Social icons -->
+	
+		<!--Copyright-->
+		<div class="footer-copyright py-3">
+		  © 2018 Copyright:
+		  <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+		</div>
+		<!--/.Copyright-->
+	
+	  </footer>
+	  <!--/.Footer-->
+	</div>
+	
+	{% endblock %}
