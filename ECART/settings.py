@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gv+pxgu)ys6at6&gtqe%jc*k&20!nw$i1z$apwlsht405@0u46'
+SECRET_KEY = config('SECRET_KEY') 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = config('DEBUG', default=True, cast=bool)
+
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'cart',
     'order',
     'adminapp',
+    'storages',
     
 ]
 
@@ -90,9 +94,9 @@ DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'atp_db',
-       'USER': 'atp',
-       'PASSWORD': '1234',
-       'HOST': 'localhost',
+       'USER': 'ubuntu',
+       'PASSWORD': 'ubntu123',
+       'HOST': 'database-1.c2gvassfepba.us-west-2.rds.amazonaws.com',
        'PORT': '5432',
     }
 }
@@ -144,6 +148,16 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_TOKEN = '3285d3ef0bdc6e1e4e303abe66659644'
+AUTH_TOKEN = config('AUTH_TOKEN')
 ACCOUNT_SID = 'ACdfb2dc04c5b69a63f3155bcbf3e426f5'
 SERVICES_ID = 'VA58982be6f4c44fb3ffeb2c3b60abb741'
+
+# aws
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_QUERYSTRING_AUTH= False 
+AWS_S3_FILE_OVERWRITE=False
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+AWS_ACCESS_KEY_ID = 'AKIA36CFKDSAWBXLKMSH'
+AWS_SECRET_ACCESS_KEY='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'
+AWS_STORAGE_BUCKET_NAME ='shopcart-bucket' 
+
