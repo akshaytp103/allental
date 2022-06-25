@@ -92,12 +92,12 @@ AUTH_USER_MODEL =  'accounts.Account'
 
 DATABASES = {
     'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'atp_db',
-       'USER': 'ubuntu',
-       'PASSWORD': 'ubntu123',
-       'HOST': 'database-1.c2gvassfepba.us-west-2.rds.amazonaws.com',
-       'PORT': '5432',
+       'ENGINE':config('ENGINE'),
+       'NAME': config('NAME'),
+       'USER': config('USER'),
+       'PASSWORD': config('PASSWORD'),
+       'HOST': config('HOST'),
+       'PORT': config('PORT', cast=int)
     }
 }
 
