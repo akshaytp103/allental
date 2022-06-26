@@ -1,7 +1,3 @@
-from email.mime import image
-from sre_constants import CATEGORY_LOC_NOT_WORD
-from tkinter import CASCADE
-from typing import final
 from django.db import models
 from django.forms import DateTimeField
 from accounts.models import *
