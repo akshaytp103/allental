@@ -69,16 +69,16 @@
 							</div>
 							<!-- <span class="review-no">41 reviews</span> -->
 						</div>
-						<p class="product-description">Senectus enim minim sociosqu delectus posuere.</p>
+						<p class="product-description">{{item.description}}</p>
 						<h4 class="price">current price: <span>₹{{item.price}}</span></h4>
 						<!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p> -->
 						<form action="{% url 'add_cart' item.id %}" method="POST">
 							{% csrf_token %}	
 							{% if item.variation_set.all %}						
-					 		<div class="colors col-md-3">color
+					 		<div class="colors col-md-3">size
 								<select name="color" class="form-control" required>
 									<option value="" disabled selected>Select</option>
-									{% for i in item.variation_set.color %}
+									{% for i in item.variation_set.size %}
 									<option value="{{ i.variation_value | lower}}">{{ i.variation_value | capfirst}}</option>
 									{%endfor%}		 
 								</select>

@@ -32,7 +32,15 @@ def master_signin(request):
 
 
 def admin_home(request):
-    return render (request,'admin/admindash.html')
+    total_user = Account.objects.count()
+    total_product=Product.objects.count()
+    total_order=Order.objects.count()
+    context={
+        'total_user':total_user,
+        'total_product':total_product,
+        'total_order':total_order
+    }
+    return render (request,'admin/admindash.html',context)
 
 
 def customer(request):
