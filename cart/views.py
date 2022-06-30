@@ -30,8 +30,7 @@ def add_cart(request, product_id):
                 value = request.POST[key]
                 try:
                     variation = Variation.objects.get(product=product, variation_category__iexact=key, variation_value__iexact=value)
-                    product_variation.append(variation)
-                    print('akshay1234akshay')
+                    product_variation.append(variation)                    
                     print(variation) 
                 except:
                     pass
@@ -57,7 +56,6 @@ def add_cart(request, product_id):
 
             if product_variation in ex_var_list:
                 print(product_variation)
-                print('helloooooooooooo')
                 # increase the cart item quantity
                 index = ex_var_list.index(product_variation)
                 item_id = id[index]
@@ -70,7 +68,6 @@ def add_cart(request, product_id):
                 if len(product_variation) > 0:
                     item.variations.clear()
                     item.variations.add(*product_variation)
-                    print('variation added') 
                 item.save()
         else:
             cart_item = CartItem.objects.create(
@@ -82,9 +79,7 @@ def add_cart(request, product_id):
             if len(product_variation) > 0:
                 cart_item.variations.clear()
                 cart_item.variations.add(*product_variation)
-                print('098765098765')
             cart_item.save()
-        print('asdfgg123456')
         return redirect('cart')
     # If the user is not authenticated
     else:

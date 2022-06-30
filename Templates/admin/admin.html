@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'admin/assets/img/apple-icon.png' %}">
     <!-- <link rel="icon" type="image/png" href="{% static 'admin/assets/img/favicon.png' %}"> -->
-    <link rel="shortcut icon" type="image/png" href="{% static 'assets/img/canonlarge.jpg' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'admin/assets/img/canonlarge.jpg' %}">
    
     <title>
       {% block title %} {% endblock %}
@@ -18,7 +18,8 @@
     <link href="{% static 'admin/assets/css/nucleo-icons.css' %}" rel="stylesheet" />
     <link href="{% static 'admin/assets/css/nucleo-svg.css' %}" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js' %}" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="{% static 'admin/assets/css/nucleo-svg.css' %}" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{% static 'admin/assets/css/argon-dashboard.css' %}" rel="stylesheet" />
@@ -33,7 +34,7 @@
       <div class="sidenav-header d-flex justify-content-center">
         
         <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-          <img src="{% static 'admin/assets/img/logocam.JPG '%}" class="navbar-brand-img h-100" style="width: 100px; height: 80px;" alt="Allental">
+          <p  class="navbar-brand-img h-100" style="width: 100px; height: 80px;" >Allental</p>
         </a>
       </div>
       <hr class="horizontal dark mt-0">
@@ -43,7 +44,7 @@
             <a class="nav-link {% if request.resolver_match.url_name == 'admin_home' %} active {% endif %}" href="{%url 'admin_home'%}">
               
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                <i class="fa-solid fa-chart-line text-primary text-sm opacity-10"></i>
               </div>
               <span class="nav-link-text ms-1">Dashboard</span>
             </a>
@@ -52,7 +53,7 @@
             <a class="nav-link  {% if request.resolver_match.url_name == 'customer' %} active {% endif %}" href="{%url 'customer'%}">
               
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+                <i class="fa-solid fa-user text-warning text-sm opacity-10"></i>
               </div>
               <span class="nav-link-text ms-1">Customer</span>
             </a>
@@ -61,7 +62,7 @@
             <a class="nav-link {% if request.resolver_match.url_name == 'order_details' %} active {% endif %} " href="{%url 'orders' %}">
               
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+                <i class="fa-solid fa-cart-shopping text-success text-sm opacity-10"></i>
               </div>
               <span class="nav-link-text ms-1">Orders</span>
             </a>
@@ -74,7 +75,7 @@
             <a class="nav-link {% if request.resolver_match.url_name == 'viewproduct' %} active {% endif %}" href="{% url 'viewproduct' %}">
               
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                <i class="fa-solid fa-layer-group text-dark text-sm opacity-10"></i>
               </div>
               <span class="nav-link-text ms-1">Product</span>
             </a>
@@ -303,7 +304,7 @@
       }
     </script>
     <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js'%}"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{% static 'admin/assets/js/argon-dashboard.min.js'%}"></script>
   </body>
